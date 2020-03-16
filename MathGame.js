@@ -1,75 +1,3 @@
-// import React from 'react'
-// class MathGame extends React.Component {
-//     constructor(props) {
-//         super(props)
-//         this.state = {
-//             result: "Correct!",
-//             timer: 60,
-//             score: 0,
-//             num1: null,
-//             num2: null,
-//             product: null,
-//             possibilities: []
-//         }
-//         this.answer = this.answer.bind(this);
-//         this.startGame = this.startGame.bind(this)
-//     }
-
-//     componentDidMount() {
-//         this.answer();
-//     }
-
-//     startGame() {
-//         let time = 60;
-//         setInterval(() => {
-//             time--;
-//             this.setState({
-//                 timer: time
-//             })
-//         }, 1000)
-//     }
-
-//     answer() {
-//         const num1 = Math.floor(Math.random() * (10 - 1)) + 1
-//         const num2 = Math.floor(Math.random() * (10 - 1)) + 1
-//         const p1 = Math.floor(Math.random() * (81 - 1)) + 1
-//         const p2 = Math.floor(Math.random() * (81 - 1)) + 1
-//         const p3 = Math.floor(Math.random() * (81 - 1)) + 1
-//         const product = num1 * num2
-//         this.setState({
-//             num1: num1,
-//             num2: num2,
-//             product: num1 * num2,
-//             possibilities: [product, p1, p2, p3]
-//         })
-//         console.log(this.state.possibilities[0])
-//     }
-
-//     render() {
-//         const rightanswer1 = this.state.possibilities[Math.floor(Math.random() * 3)]
-//         const rightanswer2 = this.state.possibilities[Math.floor(Math.random() * 3)]
-//         const rightanswer3 = this.state.possibilities[Math.floor(Math.random() * 3)]
-//         const rightanswer4 = this.state.possibilities[Math.floor(Math.random() * 3)];
-
-
-//         return (
-//             <div id="container">
-//                 <div id="score">{this.state.score}</div>
-//                 <div id="result">{this.state.result}</div>
-//                 <div id="question">{this.state.num1}x{this.state.num2}</div>
-//                 <div id="note">Please select the correct answer</div>
-//                 <div id="q1" onClick={this.answer}>{rightanswer1}</div>
-//                 <div id="q2" onClick={this.answer}>{rightanswer2}</div>
-//                 <div id="q3" onClick={this.answer}>{rightanswer3}</div>
-//                 <div id="q4" onClick={this.answer}>{rightanswer4}</div>
-//                 <div id="reset" onClick={this.startGame}>Start</div>
-//                 <div id="time">Time: {this.state.timer}s</div>
-//             </div>
-//         )
-//     }
-// }
-// export default MathGame
-// =================================================
 /*
 Name: Ibraheem Dawod
 Age: 13 years old
@@ -107,10 +35,6 @@ function MathGame() {
     const [product, setProduct] = useState(null)
     const [possibilities, setPossibilities] = useState([null, null, null])
     const [timers, setTimers] = useState(null)
-    // let highscore = [];
-    // const [highscores, sethighscores] = useState(highscore)
-    // let scores = highscores;
-    // const [best, setBest] = useState("didn't get")
 
     // when square brackets is empty, it acts as component did mount in that it only runs once
     //it calls answer so that a question pops up and calls once so to change the div from the homepage to game page
@@ -131,8 +55,6 @@ function MathGame() {
 
     // reset goes back to start page and ends timer
     function reset() {
-        // highscore.push(score)
-        // sethighscores(highscore)
         clearInterval(timers)
         document.getElementById('container').style.display = 'none';
         document.getElementById('big-container').style.display = 'block';
@@ -147,7 +69,7 @@ function MathGame() {
         setTimers(setInterval(() => {
             time--;
             setTimer(time);
-            // passes time to checkTimer so that it can end the game when time == 0
+            // passes time to checkTimer so that it can end the game when time === 0
             checkTimer(time);
         }, 1000))
         setScore(0);
@@ -159,16 +81,6 @@ function MathGame() {
     function checkTimer(time) {
         // when the time becomes 0, go to game over screen and end all timers
         if (time === 0) {
-            // const isBelowThreshold = (currentValue) => score > currentValue;
-            // if (highscores.every(isBelowThreshold) === true) {
-            //     console.log('done')
-            //     setBest('got')
-            // } else {
-            //     console.log('not done')
-            //     setBest("didn't get")
-            // }
-            // highscore.push(score)
-            // sethighscores(highscore)
             clearInterval(timers)
             document.getElementById('result').style.visibilty = 'hidden'
             document.getElementById('container').style.display = 'none';
@@ -222,7 +134,6 @@ function MathGame() {
             <div id='gameOver'>
                 <h1 style={{ backgroundColor: 'transparent' }}> Game Over </h1>
                 <h3 style={{ backgroundColor: 'transparent' }}>You scored {score} points!</h3>
-                {/* <h3 style={{ backgroundColor: 'transparent' }}>You {best} a highscore</h3> */}
                 <div id="play-again" onClick={() => startGame()}>Play Again</div>
             </div>
             <div id="big-container"><div id="start" onClick={() => startGame()}>Start</div></div>
@@ -235,18 +146,9 @@ function MathGame() {
                 {possibilities.map((change, k) => (
                     <div id="q1" key={k} onClick={() => answer(change)}>{change}</div>
                 ))}
-                {/* <div id="q1" onClick={() => answer()}>{rightanswer1}</div>
-                <div id="q2" onClick={() => answer()}>{rightanswer2}</div>
-                <div id="q3" onClick={() => answer()}>{rightanswer3}</div>
-                <div id="q4" onClick={() => answer()}>{rightanswer4}</div> */}
                 <div id="reset" onClick={() => reset()}>Reset</div>
                 <div id="time">Time: {timer}s</div>
             </div>
-            {/* <div id="highScore">
-                Scores: <br />{scores.map((k, change) => (
-                    <h3 id='scores' key={k}>{scores[change]}</h3>
-                ))}
-            </div> */}
         </div>
 
     )
